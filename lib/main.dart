@@ -14,58 +14,40 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Column(
+      home: Stack(
+        alignment: AlignmentDirectional.topStart,
         children: <Widget>[
-          Image.asset(
-            "images/default_decoration_delete.png",
-            width: 100,
-            height: 100,
-          ),
-          Image.asset(
-            "images/default_decoration_delete.png",
-            width: 100,
-            height: 100,
-          ),
-          SizedBox(
-            width: 300,
-            height: 400,
-            child: Stack(
-              alignment: AlignmentDirectional.topStart,
-              children: <Widget>[
-                DecoratedBox(
-                  decoration: BoxDecoration(
-                      color: Colors.grey
-                  ),
-                  child: ElementContainerWidget(
-                      decorationElementContainerWidgetState),
-                ),
-                Positioned(
-                  child: RaisedButton(
-                    child: Text("add"),
-                    onPressed: () {
-                      StickerElement stickerElement = StickerElement(100, 100);
-                      decorationElementContainerWidgetState
-                          .addSelectAndUpdateElement(
-                          stickerElement);
-                    },
-                  ),
-                  left: 0,
-                  top: 50,
-                ),
-                Positioned(
-                  child: RaisedButton(
-                    child: Text("delete"),
-                    onPressed: () {
-                      decorationElementContainerWidgetState
-                          .unSelectDeleteAndUpdateTopElement();
-                    },
-                  ),
-                  left: 100,
-                  top: 50,
-                ),
-              ],
+          DecoratedBox(
+            decoration: BoxDecoration(
+                color: Colors.grey
             ),
-          )
+            child: ElementContainerWidget(
+                decorationElementContainerWidgetState),
+          ),
+          Positioned(
+            child: RaisedButton(
+              child: Text("add"),
+              onPressed: () {
+                StickerElement stickerElement = StickerElement(100, 100);
+                decorationElementContainerWidgetState
+                    .addSelectAndUpdateElement(
+                    stickerElement);
+              },
+            ),
+            left: 0,
+            top: 50,
+          ),
+          Positioned(
+            child: RaisedButton(
+              child: Text("delete"),
+              onPressed: () {
+                decorationElementContainerWidgetState
+                    .unSelectDeleteAndUpdateTopElement();
+              },
+            ),
+            left: 100,
+            top: 50,
+          ),
         ],
       ),
     );
