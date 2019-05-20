@@ -133,8 +133,9 @@ class ElementContainerWidgetState extends State<ElementContainerWidget> {
     }
   }
 
-  onMove(DragUpdateDetails d) {
-    if (scrollSelectTapOtherAction(d)) {
+  onMove(DragUpdateDetails dragUpdateDetails) {
+    List<DragUpdateDetails> dragUpdateDetailList = [dragUpdateDetails];
+    if (scrollSelectTapOtherAction(dragUpdateDetailList)) {
       return;
     } else {
       if (mMode == BaseActionMode.SELECTED_CLICK_OR_MOVE
@@ -142,9 +143,9 @@ class ElementContainerWidgetState extends State<ElementContainerWidget> {
           || mMode == BaseActionMode.MOVE) {
         if (mMode == BaseActionMode.SELECTED_CLICK_OR_MOVE ||
             mMode == BaseActionMode.SELECT) {
-          onSingleFingerMoveStart(d);
+          onSingleFingerMoveStart(dragUpdateDetailList[0]);
         } else {
-          onSingleFingerMoveProcess(d);
+          onSingleFingerMoveProcess(dragUpdateDetailList[0]);
         }
         update();
         mMode = BaseActionMode.MOVE;
@@ -225,7 +226,7 @@ class ElementContainerWidgetState extends State<ElementContainerWidget> {
 
   /// 添加一个元素，如果元素已经存在，那么就会添加失败
   /// [wsElement] 被添加的元素
-  addElement(WsElement wsElement) {
+  bool addElement(WsElement wsElement) {
     if (mEditRect == null || mEditRect.width == 0 || mEditRect.height == 0) {
       mEditRect = Rect.fromLTRB(0, 0, globalKey.currentContext.size.width,
           globalKey.currentContext.size.height);
@@ -265,7 +266,7 @@ class ElementContainerWidgetState extends State<ElementContainerWidget> {
 
   /// 删除一个元素，只能删除当前最顶层的元素
   /// [wsElement] 被删除的元素
-  deleteElement([WsElement wsElement]) {
+  bool deleteElement([WsElement wsElement]) {
     if (wsElement == null) {
       if (mElementList.length <= 0) {
         return false;
@@ -301,7 +302,7 @@ class ElementContainerWidgetState extends State<ElementContainerWidget> {
 
   /// 选中一个元素，如果需要选中的元素没有被添加到 container 中则选中失败
   /// [wsElement] 被选中的元素
-  selectElement(WsElement wsElement) {
+  bool selectElement(WsElement wsElement) {
     print("$TAG selectElement |||||||||| element:$wsElement");
     if (wsElement == null) {
       print("$TAG selectElement element is null");
@@ -335,7 +336,7 @@ class ElementContainerWidgetState extends State<ElementContainerWidget> {
   }
 
   /// 取消选中当前元素
-  unSelectElement() {
+  bool unSelectElement() {
     print("$TAG unSelectElement |||||||||| mSelectedElement:$mSelectedElement");
     if (mSelectedElement == null) {
       print("$TAG unSelectElement unSelect element is null");
@@ -358,7 +359,7 @@ class ElementContainerWidgetState extends State<ElementContainerWidget> {
   /// 根据位置找到 元素
   /// [x] container widget 中的坐标
   /// [y] container widget 中的坐标
-  findElementByPosition(double x, double y) {
+  WsElement findElementByPosition(double x, double y) {
     WsElement realFoundedElement;
     for (int i = mElementList.length - 1; i >= 0; i--) {
       WsElement nowElement = mElementList[i];
@@ -386,28 +387,28 @@ class ElementContainerWidgetState extends State<ElementContainerWidget> {
   }
 
   /// 按下了已经选中的元素，如果子类中有操作的话可以给它，优先级最高
-  downSelectTapOtherAction(PointerDownEvent event) {
+  bool downSelectTapOtherAction(PointerDownEvent event) {
     return false;
   }
 
   /// 滑动已经选中的元素，如果子类中有操作的话可以给它，优先级最高
-  scrollSelectTapOtherAction(DragUpdateDetails d) {
+  bool scrollSelectTapOtherAction(List<DragUpdateDetails> d) {
     return false;
   }
 
   /// 抬起已经选中的元素，如果子类中有操作的话可以给它，优先级最高
-  upSelectTapOtherAction(PointerUpEvent event) {
+  bool upSelectTapOtherAction(PointerUpEvent event) {
     return false;
   }
 
-  getRelativeX(double screenX) {
+  double getRelativeX(double screenX) {
     if (mOffset == null) {
       return screenX;
     }
     return screenX - mOffset.dx;
   }
 
-  getRelativeY(double screenY) {
+  double getRelativeY(double screenY) {
     if (mOffset == null) {
       return screenY;
     }

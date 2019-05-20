@@ -6,7 +6,7 @@ class StickerElement extends DecorationElement {
       : super(mOriginWidth, mOriginHeight);
 
   @override
-  initWidget() {
+  Widget initWidget() {
     return Image(
       image: NetworkImage(
           'http://pic40.nipic.com/20140412/18428321_144447597175_2.jpg'),

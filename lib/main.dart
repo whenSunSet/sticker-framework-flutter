@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sticker/decoration_element_container_widget.dart';
 import 'package:sticker/element_container_widget.dart';
+import 'package:sticker/rule_line_element_container_widget.dart';
 import 'package:sticker/sticker_element.dart';
 
 void main() => runApp(MyApp());
@@ -8,7 +8,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    DecorationElementContainerWidgetState decorationElementContainerWidgetState = new DecorationElementContainerWidgetState();
+    RuleLineElementContainerState decorationElementContainerWidgetState = RuleLineElementContainerState();
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(

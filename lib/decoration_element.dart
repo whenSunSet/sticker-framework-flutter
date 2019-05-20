@@ -26,7 +26,7 @@ abstract class DecorationElement extends WsElement {
   }
 
   @override
-  buildTransform() {
+  Widget buildTransform() {
     if (!mIsShowDecoration) {
       return super.buildTransform();
     }
@@ -153,8 +153,7 @@ abstract class DecorationElement extends WsElement {
   }
 
   @override
-  onDoubleFingerScaleAndRotateEnd(
-      RotateScaleEndDetails rotateScaleEndDetails) {
+  onDoubleFingerScaleAndRotateEnd(RotateScaleEndDetails rotateScaleEndDetails) {
     super.onDoubleFingerScaleAndRotateEnd(rotateScaleEndDetails);
     mIsShowDecoration = true;
   }
@@ -180,7 +179,7 @@ abstract class DecorationElement extends WsElement {
   ///判断坐标是否处于 旋转缩放按钮 区域中
   ///[motionEventX]
   ///[motionEventY]
-  isInScaleAndRotateButton(double motionEventX, double motionEventY) {
+  bool isInScaleAndRotateButton(double motionEventX, double motionEventY) {
     return isPointInTheRect(motionEventX, motionEventY,
         getScaleAndRotateButtonRect());
   }
@@ -188,7 +187,7 @@ abstract class DecorationElement extends WsElement {
   ///判断坐标是否处于 删除按钮 区域中
   ///[motionEventX]
   ///[motionEventY]
-  isInRemoveButton(double motionEventX, double motionEventY) {
+  bool isInRemoveButton(double motionEventX, double motionEventY) {
     return isPointInTheRect(motionEventX, motionEventY, getRemoveButtonRect());
   }
 
@@ -219,7 +218,7 @@ abstract class DecorationElement extends WsElement {
 
   ///包括旋转、删除按钮的最小矩形区域
   @override
-  getWholeRect() {
+  Rect getWholeRect() {
     Rect contentDrawRect = getContentRect();
     Rect wholeRect = Rect.fromLTRB(
         contentDrawRect.left - mRedundantAreaLeftRight,
@@ -231,7 +230,7 @@ abstract class DecorationElement extends WsElement {
   }
 
   @override
-  getOriginWholeRect() {
+  Rect getOriginWholeRect() {
     Rect originContentRect = getOriginContentRect();
     Rect originWholeRect = Rect.fromLTRB(
         originContentRect.left - mRedundantAreaLeftRight,
@@ -243,7 +242,7 @@ abstract class DecorationElement extends WsElement {
   }
 
   ///获取 元素 删除按钮在 @EditRect 坐标下的 Rect
-  getRemoveButtonRect() {
+  Rect getRemoveButtonRect() {
     Rect wholeRect = getWholeRect();
     Rect removeButtonRect = Rect.fromLTRB(
         wholeRect.left,
@@ -255,7 +254,7 @@ abstract class DecorationElement extends WsElement {
   }
 
   ///获取 元素 旋转缩放按钮在 @EditRect 坐标下的 Rect
-  getScaleAndRotateButtonRect() {
+  Rect getScaleAndRotateButtonRect() {
     Rect wholeRect = getWholeRect();
     Rect scaleAndRotateButtonRect = Rect.fromLTRB(
         wholeRect.right - ELEMENT_BUTTON_WIDTH,
@@ -267,7 +266,7 @@ abstract class DecorationElement extends WsElement {
     return scaleAndRotateButtonRect;
   }
 
-  isSingleFingerScaleAndRotate() {
+  bool isSingleFingerScaleAndRotate() {
     return mIsSingleFingerScaleAndRotate;
   }
 }

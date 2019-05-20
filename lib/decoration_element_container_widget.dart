@@ -18,7 +18,7 @@ class DecorationElementContainerWidgetState
   DecorationActionMode mDecorationActionMode;
 
   /// 取消选中、删除
-  void unSelectDeleteAndUpdateTopElement() {
+  unSelectDeleteAndUpdateTopElement() {
     unSelectElement();
     deleteElement();
     update();
@@ -26,7 +26,7 @@ class DecorationElementContainerWidgetState
 
   /// 添加、选中、更新
   /// [wsElement]
-  void addSelectAndUpdateElement(WsElement wsElement) {
+  addSelectAndUpdateElement(WsElement wsElement) {
     unSelectElement();
     addElement(wsElement);
     selectElement(wsElement);
@@ -67,7 +67,7 @@ class DecorationElementContainerWidgetState
 
   /// 滑动已经选中的元素，如果子类中有操作的话可以给它，优先级最高
   @override
-  bool scrollSelectTapOtherAction(DragUpdateDetails dragUpdateDetails) {
+  bool scrollSelectTapOtherAction(List<DragUpdateDetails> dragUpdateDetails) {
     if (mSelectedElement == null) {
       print(
           "$TAG detectorSingleFingerRotateAndScale scale and rotate but not select");
@@ -82,8 +82,8 @@ class DecorationElementContainerWidgetState
         DecorationActionMode.SINGER_FINGER_SCALE_AND_ROTATE) {
       DecorationElement selectedDecorationElement = mSelectedElement;
       selectedDecorationElement.onSingleFingerScaleAndRotateProcess(
-          getRelativeX(dragUpdateDetails.globalPosition.dx),
-          getRelativeY(dragUpdateDetails.globalPosition.dy));
+          getRelativeX(dragUpdateDetails[0].globalPosition.dx),
+          getRelativeY(dragUpdateDetails[0].globalPosition.dy));
       update();
       callListener((elementActionListener) {
         if (elementActionListener is DecorationElementActionListener) {

@@ -42,7 +42,7 @@ abstract class WsElement {
     mElementShowingWidget = initWidget();
   }
 
-  initWidget();
+  Widget initWidget();
 
   delete() {}
 
@@ -112,19 +112,18 @@ abstract class WsElement {
   }
 
   /// 双指旋转缩放结束
-  onDoubleFingerScaleAndRotateEnd(
-      RotateScaleEndDetails rotateScaleEndDetails) {
+  onDoubleFingerScaleAndRotateEnd(RotateScaleEndDetails rotateScaleEndDetails) {
     mIsDoubleFingerScaleAndRotate = false;
     mBaseScale = 0;
     mBaseRotate = 0;
   }
 
-  isInWholeDecoration(double motionEventX, double motionEventY) {
+  bool isInWholeDecoration(double motionEventX, double motionEventY) {
     print("isInWholeDecoration x:$motionEventX, y:$motionEventY");
     return isPointInTheRect(motionEventX, motionEventY, getWholeRect());
   }
 
-  isPointInTheRect(double motionEventX, double motionEventY, Rect rect) {
+  bool isPointInTheRect(double motionEventX, double motionEventY, Rect rect) {
     double centerX = getContentRect().center.dx;
     double centerY = getContentRect().center.dy;
     double originX = (motionEventX - centerX) * math.cos(-mRotate) -
@@ -134,15 +133,15 @@ abstract class WsElement {
     return rect.contains(Offset(originX, originY));
   }
 
-  getWholeRect() {
+  Rect getWholeRect() {
     return getContentRect();
   }
 
-  getOriginWholeRect() {
+  Rect getOriginWholeRect() {
     return getOriginContentRect();
   }
 
-  getContentRect() {
+  Rect getContentRect() {
     double widgetCenterX = mEditRect.center.dx;
     double widgetCenterY = mEditRect.center.dy;
     double contentWidth = mOriginWidth * mScale;
@@ -157,7 +156,7 @@ abstract class WsElement {
     return contentRect;
   }
 
-  getOriginContentRect() {
+  Rect getOriginContentRect() {
     double viewCenterX = mEditRect.center.dx;
     double viewCenterY = mEditRect.center.dy;
     double contentWidth = mOriginWidth;
@@ -175,14 +174,14 @@ abstract class WsElement {
     return originContentRect;
   }
 
-  getRelativeX(double screenX) {
+  double getRelativeX(double screenX) {
     if (mOffset == null) {
       return screenX;
     }
     return screenX - mOffset.dx;
   }
 
-  getRelativeY(double screenY) {
+  double getRelativeY(double screenY) {
     if (mOffset == null) {
       return screenY;
     }
@@ -190,7 +189,7 @@ abstract class WsElement {
   }
 }
 
-isSameElement(WsElement wsElementOne,
+bool isSameElement(WsElement wsElementOne,
     WsElement wsElementTwo) {
   if (wsElementOne == null || wsElementTwo == null) {
     return false;
