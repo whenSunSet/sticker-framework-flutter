@@ -469,7 +469,10 @@ class ElementContainerWidgetState extends State<ElementContainerWidget> {
   }
 }
 
+typedef EndRun = void Function();
+
 typedef Consumer<T> = void Function(T t);
+
 
 abstract class ElementActionListener {
 
