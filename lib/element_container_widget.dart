@@ -463,7 +463,7 @@ class ElementContainerWidgetState extends State<ElementContainerWidget> {
 
   void callListener(
       Consumer<ElementActionListener> decorationActionListenerConsumer) {
-    mElementActionListenerSet.map((elementActionListener) {
+    mElementActionListenerSet.forEach((elementActionListener) {
       decorationActionListenerConsumer(elementActionListener);
     });
   }
